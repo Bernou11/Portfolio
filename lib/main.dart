@@ -44,7 +44,10 @@ class _MyHomePageState extends State<MyHomePage> {
     'displayCProjects': false,
     'displayCppProjects': false,
     'displayC#Projects': false,
-    'displayPythonProjects': false
+    'displayPythonProjects': false,
+    'displayJsProjects': false,
+    'displayTsProjects': false,
+    'displayDartProjects': false
   };
   late Map<String, List<String>> sortedProjects;
 
@@ -265,6 +268,48 @@ class _MyHomePageState extends State<MyHomePage> {
                             fontSize: 6.9, fontWeight: FontWeight.bold
                         ),
                             "Python")
+                    ),
+                    ElevatedButton(
+                        style: elevatedButtonStyle,
+                        onPressed: () {
+                          setState(() {
+                            buttonsStates.updateAll((key, value) => false);
+
+                            buttonsStates['displayJsProjects'] = true;
+                          });
+                        },
+                        child: Text(style: TextStyle(
+                            fontSize: 6.9, fontWeight: FontWeight.bold
+                        ),
+                            "Js")
+                    ),
+                    ElevatedButton(
+                        style: elevatedButtonStyle,
+                        onPressed: () {
+                          setState(() {
+                            buttonsStates.updateAll((key, value) => false);
+
+                            buttonsStates['displayTsProjects'] = true;
+                          });
+                        },
+                        child: Text(style: TextStyle(
+                            fontSize: 6.9, fontWeight: FontWeight.bold
+                        ),
+                            "Ts")
+                    ),
+                    ElevatedButton(
+                        style: elevatedButtonStyle,
+                        onPressed: () {
+                          setState(() {
+                            buttonsStates.updateAll((key, value) => false);
+
+                            buttonsStates['displayDartProjects'] = true;
+                          });
+                        },
+                        child: Text(style: TextStyle(
+                            fontSize: 6.9, fontWeight: FontWeight.bold
+                        ),
+                            "Dart")
                     )
                   ],
                 ),
@@ -329,6 +374,27 @@ class _MyHomePageState extends State<MyHomePage> {
                   ...?_displayButtonsAfterClick("python")?.isNotEmpty ?? false
                       ? _displayButtonsAfterClick("python") : [
                     Text("Pas de projet en python pour le moment")
+                  ]
+                ],
+                if(buttonsStates['displayJsProjects'] == true) ...[
+                  text(),
+                  ...?_displayButtonsAfterClick("javascript")?.isNotEmpty ?? false
+                      ? _displayButtonsAfterClick("javascript") : [
+                    Text("Pas de projet en javascript pour le moment")
+                  ]
+                ],
+                if(buttonsStates['displayTsProjects'] == true) ...[
+                  text(),
+                  ...?_displayButtonsAfterClick("typescript")?.isNotEmpty ?? false
+                      ? _displayButtonsAfterClick("typescript") : [
+                    Text("Pas de projet en typescript pour le moment")
+                  ]
+                ],
+                if(buttonsStates['displayDartProjects'] == true) ...[
+                  text(),
+                  ...?_displayButtonsAfterClick("dart")?.isNotEmpty ?? false
+                      ? _displayButtonsAfterClick("dart") : [
+                    Text("Pas de projet en dart pour le moment")
                   ]
                 ],
               ]

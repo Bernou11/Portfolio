@@ -28,7 +28,9 @@ class GitHubService {
         'python': [],
         'c': [],
         'c++': [],
-        'c#': []
+        'c#': [],
+        'javascript': [],
+        'dart': []
       };
 
       for (var repo in repos) {
@@ -44,23 +46,57 @@ class GitHubService {
           topics = List<String>.from(json.decode(topicsResponse.body)['names']);
         }
 
+        print("Repo: ${repo['name']}, Language: $language, Topics: $topics");
+
         if (language == 'typescript') {
           String? matchedCategory;
           if (topics.any((topic) => topic.toLowerCase() == 'react')) {
             matchedCategory = 'react';
-          } else if (topics.any((topic) => topic.toLowerCase() == 'nextjs' || topic.toLowerCase() == 'next')) {
+          } else if (topics.any((topic) =>
+          topic.toLowerCase() == 'nextjs' ||
+              topic.toLowerCase() == 'next')) {
             matchedCategory = 'next';
-          } else if (topics.any((topic) => topic.toLowerCase() == 'nodejs' || topic.toLowerCase() == 'node')) {
+          } else if (topics.any((topic) =>
+          topic.toLowerCase() == 'nodejs' ||
+              topic.toLowerCase() == 'node')) {
             matchedCategory = 'node';
           }
 
           if (matchedCategory != null) {
             sortedRepos[matchedCategory]?.add(repo['name']);
           } else {
-            sortedRepos['typescript']?.add(repo['name']); // If no match, keep in TypeScript
+            sortedRepos['typescript']?.add(repo['name']);
           }
-        } else if (language != 'unknown') {
-          sortedRepos.putIfAbsent(language, () => []).add(repo['name']);
+        } else if (language == 'javascript') {
+          String? matchedCategory;
+          if (topics.any((topic) => topic.toLowerCase() == 'react')) {
+            matchedCategory = 'react';
+          } else if (topics.any((topic) =>
+          topic.toLowerCase() == 'nextjs' ||
+              topic.toLowerCase() == 'next')) {
+            matchedCategory = 'next';
+          } else if (topics.any((topic) =>
+          topic.toLowerCase() == 'nodejs' ||
+              topic.toLowerCase() == 'node')) {
+            matchedCategory = 'node';
+          }
+
+          if (matchedCategory != null) {
+            sortedRepos[matchedCategory]?.add(repo['name']);
+          } else {
+            sortedRepos['javascript']?.add(repo['name']);
+          }
+        } else if (language == 'dart') {
+          String? matchedCategory;
+          if (topics.any((topic) => topic.toLowerCase() == 'flutter')) {
+            matchedCategory = 'flutter';
+          }
+
+          if (matchedCategory != null) {
+            sortedRepos[matchedCategory]?.add(repo['name']);
+          } else {
+            sortedRepos['dart']?.add(repo['name']);
+          }
         }
       }
 
